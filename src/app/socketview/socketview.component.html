@@ -1,0 +1,51 @@
+<hr>
+<div id="loading" [innerHTML]="loadingarea"></div>
+<div *ngIf="output.length > 0" class="dropdown">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a style="cursor:pointer;" class="dropdown-item" (click)="renderDeviceCategorieHTML(categorie.index)" *ngFor="let categorie of output">{{categorie.name}}</a>
+    </div>
+</div>
+<hr>
+<div class="socketcontainer" #socketContainer>
+    <div class="infopanel" id="cycletime" #cycletimeSelector></div>   
+    <div *ngIf="categoriehtml != null">
+        <div class="alert alert-success" role="alert" style="text-align: center;"><h3>{{categoriehtml.name}}</h3></div>
+        <div class="xdevice" *ngFor="let devicevalue of categoriehtml.devices">
+             <div *ngIf="devicevalue.show == true" id="{{devicevalue.handleDevice}}" 
+                (mousedown)="mouseDownEvent($event,1,devicevalue.typeDevice)" 
+                (touchstart)="mouseDownEvent($event,1,devicevalue.typeDevice)" 
+                (mouseup)="mouseUpEvent($event,1,devicevalue.typeDevice)" 
+                (mouseleave)="mouseUpEvent($event,1,devicevalue.typeDevice)" 
+                (touchend)="mouseUpEvent($event,1,devicevalue.typeDevice)" 
+                (touchmove)="touchMoveEvent($event)" 
+                class="xdeviceset {{devicevalue.classvalue}} {{devicevalue.styleDevice}}">{{devicevalue.displayNameDevice}}</div> 
+            <div class="xdeviceinfo" *ngIf="devicevalue.params.length > 0">
+                <div                     
+                    (mousedown)="mouseDownEvent($event,2,0)" 
+                    (touchstart)="mouseDownEvent($event,2,0)" 
+                    (mouseup)="mouseUpEvent($event,2,0)" 
+                    (mouseleave)="mouseUpEvent($event,2,0)" 
+                    (touchend)="mouseUpEvent($event,2,0)" 
+                    (touchmove)="touchMoveEvent($event)" 
+                    class="xdeviceinfotoggler"></div> 
+                <div class="xdeviceinfocontent" style="display:none;z-index:10000;">
+                    <div class="xdeviceinfoparam" *ngFor="let paramvalue of devicevalue.params">
+                         <div class="xdeviceinfoparam">
+                            <span class="xdeviceinfoparamlabel">{{paramvalue.displayName}}: </span>
+                            <span id="p{{devicevalue.handleDevice}}_{{paramvalue.handle}}" class="xdeviceinfoparamvalue">{{paramvalue.value}}</span>
+                            <span *ngIf="paramvalue.type == TYPE_PROPERTIEINFO_CHANGESOLLVALUE" (click)="sendParamMessage(devicevalue.handleDevice,paramvalue.handle,'-')" class="TYPE_PROPERTIEINFO_CHANGESOLLVALUE_DE xparamdeviceeditable">&nbsp;</span>
+                            <span *ngIf="paramvalue.type == TYPE_PROPERTIEINFO_CHANGESOLLVALUE" (click)="sendParamMessage(devicevalue.handleDevice,paramvalue.handle,'+')" class="TYPE_PROPERTIEINFO_CHANGESOLLVALUE_IN xparamdeviceeditable">&nbsp;</span>
+                            <span *ngIf="paramvalue.type == TYPE_PROPERTIEINFO_TOGGLEACTIVATION" (click)="sendParamMessage(devicevalue.handleDevice,paramvalue.handle,'1')" class="TYPE_PROPERTIEINFO_TOGGLEACTIVATION xparamdeviceeditable">&nbsp;</span>
+                            <span *ngIf="paramvalue.type == TYPE_PROPERTIEINFO_INFO" data-value="1" class="xdeviceinfoparamvalue TYPE_PROPERTIEINFO_INFO"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let devicegraph of categoriehtml.devices" style="clear:both;">
+            <div *ngIf="devicegraph.showrecordGraph == true">
+                <plotly-plot [data]="devicegraph.recordGraph.data" [layout]="devicegraph.recordGraph.layout"></plotly-plot>
+            </div>
+        </div>
+    </div>   
+</div>    
