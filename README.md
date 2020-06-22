@@ -1,2 +1,2 @@
-# alpdesk-automationclient
-Angular-Visualisation for Alpdesk-Automationservice
+# Alpdesk-Automationclient
+Angular Web-Gui for Alpdesk-Automationservice

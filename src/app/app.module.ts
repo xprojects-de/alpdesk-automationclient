@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppConfigService } from './services/app-config.service';
 
-import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import * as PlotlyJS from 'plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 
