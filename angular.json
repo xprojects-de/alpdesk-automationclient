@@ -4,9 +4,9 @@
     "newProjectRoot": "projects",
     "projects": {
         "alpdesk-automationclient": {
+            "projectType": "application",
             "root": "",
             "sourceRoot": "src",
-            "projectType": "application",
             "prefix": "app",
             "schematics": {},
             "architect": {
@@ -27,8 +27,7 @@
                             "src/styles.css",
                             "src/assets/css/homeautomation.css"
                         ],
-                        "scripts": [],
-                        "es5BrowserSupport": true
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {

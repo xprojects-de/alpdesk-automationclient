@@ -9,4 +9,5 @@ import { AppConfigService } from './services/app-config.service';
 export class AppComponent {
     title = 'Alpdesk-Automationclient';
     version = AppConfigService.settings.version;
+
 }

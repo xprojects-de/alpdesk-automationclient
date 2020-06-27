@@ -38,8 +38,7 @@ export function initializeApp(appConfig: AppConfigService) {
             deps: [AppConfigService], multi: true
         }
     ],
-    bootstrap: [],
-    entryComponents: [AppComponent, RestviewComponent, SocketviewComponent, DevicesviewComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 
