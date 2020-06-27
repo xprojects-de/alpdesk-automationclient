@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from './services/app-config.service';
 import * as PlotlyJS from 'plotly.js';
@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { RestviewComponent } from './restview/restview.component';
 import { SocketviewComponent } from './socketview/socketview.component';
 import { DevicesviewComponent } from './devicesview/devicesview.component';
+import { createCustomElement } from '@angular/elements';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -37,6 +38,21 @@ export function initializeApp(appConfig: AppConfigService) {
             deps: [AppConfigService], multi: true
         }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [],
+    entryComponents: [AppComponent, RestviewComponent, SocketviewComponent, DevicesviewComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+    constructor(private injector: Injector) { }
+
+    ngDoBootstrap() {
+        const baseElement = createCustomElement(AppComponent, { injector: this.injector });
+        customElements.define('app-automationroot', baseElement);
+        const restElement = createCustomElement(RestviewComponent, { injector: this.injector });
+        customElements.define('app-restview', restElement);
+        const socketElement = createCustomElement(SocketviewComponent, { injector: this.injector });
+        customElements.define('app-socketview', socketElement);
+        const deviceElement = createCustomElement(DevicesviewComponent, { injector: this.injector });
+        customElements.define('app-devicesview', deviceElement);
+    }
+}
