@@ -27,7 +27,9 @@
                             "src/styles.css",
                             "src/assets/css/homeautomation.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/plotly.js/dist/plotly.min.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
