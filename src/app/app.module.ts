@@ -39,7 +39,7 @@ export function initializeApp(appConfig: AppConfigService) {
 })
 export class AppModule {
 
-    constructor(private injector: Injector) { }
+    /*constructor(private injector: Injector) { }
 
     ngDoBootstrap() {
         const baseElement = createCustomElement(AppComponent, { injector: this.injector });
@@ -50,5 +50,5 @@ export class AppModule {
         customElements.define('app-socketview', socketElement);
         const deviceElement = createCustomElement(DevicesviewComponent, { injector: this.injector });
         customElements.define('app-devicesview', deviceElement);
-    }
+    }*/
 }
