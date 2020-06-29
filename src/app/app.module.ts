@@ -1,17 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from './services/app-config.service';
-import * as PlotlyJS from 'plotly.js';
-import { PlotlyModule } from 'angular-plotly.js';
+import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestviewComponent } from './restview/restview.component';
 import { SocketviewComponent } from './socketview/socketview.component';
 import { DevicesviewComponent } from './devicesview/devicesview.component';
-
-PlotlyModule.plotlyjs = PlotlyJS;
+import { createCustomElement } from '@angular/elements';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -27,8 +25,8 @@ export function initializeApp(appConfig: AppConfigService) {
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        PlotlyModule,
-        DeviceDetectorModule.forRoot()
+        DeviceDetectorModule.forRoot(),
+        PlotlyViaWindowModule
     ],
     providers: [
         AppConfigService, {
@@ -39,4 +37,18 @@ export function initializeApp(appConfig: AppConfigService) {
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+    constructor(private injector: Injector) { }
+
+    ngDoBootstrap() {
+        const baseElement = createCustomElement(AppComponent, { injector: this.injector });
+        customElements.define('app-automationroot', baseElement);
+        const restElement = createCustomElement(RestviewComponent, { injector: this.injector });
+        customElements.define('app-restview', restElement);
+        const socketElement = createCustomElement(SocketviewComponent, { injector: this.injector });
+        customElements.define('app-socketview', socketElement);
+        const deviceElement = createCustomElement(DevicesviewComponent, { injector: this.injector });
+        customElements.define('app-devicesview', deviceElement);
+    }
+}
