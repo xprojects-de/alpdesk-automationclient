@@ -44,6 +44,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     TYPE_HEATINGPUMP: string = '9000';
     TYPE_VENTILATION: string = '10000';
     TYPE_SHADING: string = '11000';
+    TYPE_ANALOGIN: string = '12000';
     TYPE_CYCLETIME: string = '-10';
     TYPE_PROPERTIEINFO_DEFAULT: number = 0;
     TYPE_PROPERTIEINFO_CHANGESOLLVALUE: number = 1;
@@ -126,6 +127,9 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 devicevalue.show = true;
             } else if (devicevalue.typeDevice === this.TYPE_SHADING) {
                 devicevalue.classvalue = 'xshading';
+                devicevalue.show = true;
+            } else if (devicevalue.typeDevice === this.TYPE_ANALOGIN) {
+                devicevalue.classvalue = 'xanalogin';
                 devicevalue.show = true;
             }
             if (devicevalue.records.length > 0) {
