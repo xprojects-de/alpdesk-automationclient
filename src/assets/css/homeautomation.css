@@ -425,6 +425,14 @@ h2 {
     background-color:#f5e2ab;
 }
 
+.analogin {
+    background-image:url(../icons/sd7.png);
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-color:#e29b6c;
+}
+
 .xclear {
     clear:both;
 }
