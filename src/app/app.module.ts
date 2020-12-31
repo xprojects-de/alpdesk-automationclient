@@ -3,7 +3,6 @@ import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from './services/app-config.service';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
-import { DeviceDetectorModule } from 'ngx-device-detector';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestviewComponent } from './restview/restview.component';
@@ -25,7 +24,6 @@ export function initializeApp(appConfig: AppConfigService) {
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        DeviceDetectorModule.forRoot(),
         PlotlyViaWindowModule
     ],
     providers: [
