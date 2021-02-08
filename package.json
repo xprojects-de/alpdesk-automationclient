@@ -29,7 +29,7 @@
     "document-register-element": "^1.14.10",
     "hammerjs": "^2.0.8",
     "net": "^1.0.2",
-    "ngx-device-detector": "^2.0",
+    "ngx-device-detector": "^2.0.5",
     "plotly.js": "^1.58.4",
     "popper.js": "^1.16.1",
     "rxjs": "^6.6.3",
