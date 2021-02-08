@@ -330,7 +330,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     }
 
     async delay(ms: number) {
-        await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
+        await new Promise<void>(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
     }
 
     mouseDownEvent(event: Event, dataType: number, typeDevice: any) {
