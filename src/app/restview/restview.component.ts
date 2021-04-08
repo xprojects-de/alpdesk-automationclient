@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, interval, Subscription } from 'rxjs';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { Router } from '@angular/router';
-import { RestService } from '../services/rest.service';
-import { AppConfigService } from '../services/app-config.service';
-import { HomeautomationCategorie } from '../classes/homeautomation-categorie';
-import { HomeautomationDevice } from '../classes/homeautomation-device';
-import { HomeautomationParam } from '../classes/homeautomation-param';
-import { DeviceCheckUtils } from '../classes/device-check-utils';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Observable, interval, Subscription} from 'rxjs';
+import {DeviceDetectorService} from 'ngx-device-detector';
+import {Router} from '@angular/router';
+import {RestService} from '../services/rest.service';
+import {AppConfigService} from '../services/app-config.service';
+import {HomeautomationCategorie} from '../classes/homeautomation-categorie';
+import {HomeautomationDevice} from '../classes/homeautomation-device';
+import {HomeautomationParam} from '../classes/homeautomation-param';
+import {DeviceCheckUtils} from '../classes/device-check-utils';
 
 @Component({
     selector: 'app-restview',
@@ -39,7 +39,8 @@ export class RestviewComponent implements OnInit, OnDestroy {
     private touchMoveDetected: boolean = false;
     private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
 
-    constructor(public rest: RestService, public router: Router, private deviceService: DeviceDetectorService) { }
+    constructor(public rest: RestService, public router: Router, private deviceService: DeviceDetectorService) {
+    }
 
     ngOnInit() {
         this.loadingarea = '<img width="100" src="assets/loading.gif" alt="loading" />';

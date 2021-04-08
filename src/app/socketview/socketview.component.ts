@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { WebsocketService } from '../services/websocket.service';
-import { Subject, interval, Subscription } from 'rxjs';
-import { AppConfigService } from '../services/app-config.service';
-import { HomeautomationCategorie } from '../classes/homeautomation-categorie';
-import { HomeautomationDevice } from '../classes/homeautomation-device';
-import { HomeautomationParam } from '../classes/homeautomation-param';
-import { HomeautomationRecord } from '../classes/homeautomation-record';
-import { DeviceCheckUtils } from '../classes/device-check-utils';
-import { AsyncStatusMessage } from '../classes/async-status-message';
+import {Component, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
+import {DeviceDetectorService} from 'ngx-device-detector';
+import {WebsocketService} from '../services/websocket.service';
+import {Subject, interval, Subscription} from 'rxjs';
+import {AppConfigService} from '../services/app-config.service';
+import {HomeautomationCategorie} from '../classes/homeautomation-categorie';
+import {HomeautomationDevice} from '../classes/homeautomation-device';
+import {HomeautomationParam} from '../classes/homeautomation-param';
+import {HomeautomationRecord} from '../classes/homeautomation-record';
+import {DeviceCheckUtils} from '../classes/device-check-utils';
+import {AsyncStatusMessage} from '../classes/async-status-message';
 
 @Component({
     selector: 'app-socketview',
@@ -142,7 +142,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         y: [],
                         type: 'scatter',
                         mode: 'lines+points',
-                        marker: { color: devicevalue.colors[k] }
+                        marker: {color: devicevalue.colors[k]}
                     });
                 }
                 devicevalue.recordGraph.layout.title = devicevalue.nameCategory + ' ' + devicevalue.displayNameDevice;
