@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
-import { AppConfigService } from '../services/app-config.service';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {map, catchError, tap} from 'rxjs/operators';
+import {AppConfigService} from '../services/app-config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +30,7 @@ export class RestService {
     }
 
     modifyItem(value: string): Observable<any> {
-        const sysJson = JSON.stringify({ value });
+        const sysJson = JSON.stringify({value});
         const options = {
             headers: new HttpHeaders().append('Content-Type', 'application/json')
         };
