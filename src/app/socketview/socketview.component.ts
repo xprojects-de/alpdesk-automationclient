@@ -60,41 +60,52 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     private touchDateStart: number = 0;
     private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
     private asyncStatusSubject: Subject<AsyncStatusMessage> = new Subject<AsyncStatusMessage>();
-    private asyncStatusSubjectFlag: Boolean = false;
+    private asyncStatusSubjectFlag: boolean = false;
     private updateSubscription: Subscription;
 
     constructor(websocketService: WebsocketService, private deviceService: DeviceDetectorService) {
+
         this.loadingarea = '<img width="150" src="assets/loading.gif" alt="loading" />';
         this.websocketService = websocketService;
+
     }
 
     ngOnInit() {
+
         this.websocketService.connect(this.endpoint).then(res => {
+
             this.websocketService.subscribeInit().subscribe(message => {
                 this.parseMessage(message);
             });
+
             this.websocketService.sendInitRequest();
             this.websocketService.subscribeTopic().subscribe(message => {
                 if (this.asyncStatusSubject !== null && this.asyncStatusSubject !== undefined) {
                     this.asyncStatusSubject.next(message as AsyncStatusMessage);
                 }
             });
+
             this.updateSubscription = interval(5000).subscribe(counter => {
                 this.websocketService.sendWatchdogRequest();
             });
+
         });
 
     }
 
     ngOnDestroy() {
+
         this.updateSubscription.unsubscribe();
         this.asyncStatusSubject.unsubscribe();
         this.websocketService.disconnect();
+
     }
 
     renderDeviceCategorieHTML(index: number) {
+
         const categorie: HomeautomationCategorie = this.homeautomationDevices[index];
         categorie.devices.forEach(devicevalue => {
+
             if (devicevalue.typeDevice === this.TYPE_INPUT) {
                 devicevalue.classvalue = 'xinputdevice';
                 devicevalue.show = true;
@@ -132,9 +143,12 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 devicevalue.classvalue = 'xanalogin';
                 devicevalue.show = true;
             }
+
             if (devicevalue.records.length > 0) {
+
                 devicevalue.showrecordGraph = true;
                 const dimension: number = parseInt(devicevalue.records[0].dimension, 10);
+
                 let k: number = 0;
                 for (k = 0; k < dimension; k++) {
                     devicevalue.recordGraph.data.push({
@@ -145,6 +159,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         marker: {color: devicevalue.colors[k]}
                     });
                 }
+
                 devicevalue.recordGraph.layout.title = devicevalue.nameCategory + ' ' + devicevalue.displayNameDevice;
                 devicevalue.records.forEach(record => {
                     if (record.values.length === dimension) {
@@ -154,22 +169,30 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         }
                     }
                 });
+
             }
+
         });
+
         this.categoriehtml = categorie;
+
         if (this.asyncStatusSubjectFlag === false) {
             this.asyncStatusSubject.subscribe(message => {
                 this.parseMessage(message);
             });
             this.asyncStatusSubjectFlag = true;
         }
+
     }
 
     private parseMessage(message: any) {
+
         if (message.error === this.STATE_NOERROR) {
+
             if (message.kind === this.STATE_INIT) {
                 this.parseDevices(message.devices);
             } else {
+
                 const msg = message as AsyncStatusMessage;
                 if (msg.kind === this.STATE_SET) {
                     this.parseSetMessage(msg);
@@ -182,14 +205,20 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         });
                     }
                 }
+
             }
+
         }
+
     }
 
     parseSetMessage(message: AsyncStatusMessage): void {
+
         if (message.id === this.TYPE_CYCLETIME) {
+
             const info = message.value.split('|');
             if (this.cycletimeSelector !== undefined) {
+
                 const ct: HTMLElement = this.cycletimeSelector.nativeElement as HTMLElement;
                 ct.innerHTML = 'CycleTime: ' + info[0] + 'ms<small> (' + info[1] + 'ms / ' + info[2] + 'ms)</small>';
                 if (this.idleProperty === false) {
@@ -199,13 +228,19 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                     this.idleProperty = false;
                     ct.style.backgroundColor = '#87DB92';
                 }
+
             }
+
         } else {
+
             if (this.socketContainer !== undefined) {
+
                 const st: HTMLElement = this.socketContainer.nativeElement as HTMLElement;
                 const qs = st.querySelector('[id=\'' + message.id + '\']');
                 if (qs !== null) {
+
                     if (message.id.substring(0, 1) === 'p') {
+
                         const pinfo = message.value.split('|');
                         if (pinfo.length === 2) {
                             qs.setAttribute('class', pinfo[1] + ' xdeviceinfoparamvalue');
@@ -213,7 +248,9 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                             qs.setAttribute('class', 'xdeviceinfoparamvalue');
                         }
                         qs.innerHTML = pinfo[0];
+
                     } else if (message.id.substring(0, 1) === 'd') {
+
                         const dinfo = message.value.split('|');
                         if (dinfo.length === 2) {
                             qs.setAttribute('class', dinfo[1] + ' xdeviceinfoparamvalue');
@@ -222,25 +259,36 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         }
                         qs.innerHTML = dinfo[0];
                         qs.setAttribute('data-value', dinfo[0]);
+
                     } else {
+
                         if (message.value === '1') {
                             qs.classList.add('xactive');
                         } else {
                             qs.classList.remove('xactive');
                         }
+
                     }
+
                 }
+
             }
+
         }
+
     }
 
     sendParamMessage(device: string, param: string, value: string) {
+
         const message = '!p' + device + '_' + param + '#' + value;
         this.messageTransaction(message);
+
     }
 
     private parseDevices(devices: any) {
+
         devices.forEach(element => {
+
             let found: boolean = false;
             for (const [key, value] of Object.entries(this.homeautomationDevices)) {
                 if (value.name === element.nameCategory) {
@@ -250,6 +298,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                     return;
                 }
             }
+
             if (!found) {
                 const homeCategorie: HomeautomationCategorie = new HomeautomationCategorie();
                 homeCategorie.name = element.nameCategory;
@@ -257,12 +306,16 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 homeCategorie.index = this.homeautomationDevices.length;
                 this.homeautomationDevices[this.homeautomationDevices.length] = homeCategorie;
             }
+
         });
+
         this.loadingarea = '';
         this.output = this.homeautomationDevices;
+
     }
 
     private getDevices(devicevalue: any): HomeautomationDevice {
+
         const homeDevice: HomeautomationDevice = new HomeautomationDevice();
         homeDevice.typeDevice = devicevalue.typeDevice;
         homeDevice.nameCategory = devicevalue.nameCategory;
@@ -272,13 +325,17 @@ export class SocketviewComponent implements OnInit, OnDestroy {
         homeDevice.active = false;
         homeDevice.runningState = false;
         homeDevice.styleDevice = devicevalue.styleDevice;
+
         if (devicevalue.value !== undefined && devicevalue.value === 'true') {
             homeDevice.active = true;
         }
+
         if (devicevalue.value !== undefined && devicevalue.runningState === 'true') {
             homeDevice.runningState = true;
         }
-        if (!!devicevalue.params && devicevalue.params !== undefined) {
+
+        if (devicevalue.params !== undefined && devicevalue.params !== null) {
+
             let counter = 0;
             devicevalue.params.forEach(paramvalue => {
                 const param: HomeautomationParam = new HomeautomationParam();
@@ -292,8 +349,11 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 homeDevice.params[counter] = param;
                 counter++;
             });
+
         }
-        if (!!devicevalue.dashboard && devicevalue.dashboard !== undefined) {
+
+        if (devicevalue.dashboard !== undefined && devicevalue.dashboard !== null) {
+
             let counter = 0;
             devicevalue.dashboard.forEach(dashboardvalue => {
                 const dashboard: HomeautomationParam = new HomeautomationParam();
@@ -307,8 +367,11 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 homeDevice.dashboard[counter] = dashboard;
                 counter++;
             });
+
         }
-        if (!!devicevalue.records && devicevalue.records !== undefined) {
+
+        if (devicevalue.records !== undefined && devicevalue.records !== null) {
+
             let counter = 0;
             devicevalue.records.forEach(recordvalue => {
                 const record: HomeautomationRecord = new HomeautomationRecord();
@@ -320,9 +383,11 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 homeDevice.records[counter] = record;
                 counter++;
             });
+
         }
 
         return homeDevice;
+
     }
 
     messageTransaction(message: string) {
@@ -334,10 +399,14 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     }
 
     mouseDownEvent(event: Event, dataType: number, typeDevice: any) {
+
         if (this.deviceCheckUtils.checkEventPerforming(event)) {
+
             if (event.target !== undefined) {
+
                 const eventTarget: HTMLElement = event.target as HTMLElement;
                 switch (dataType) {
+
                     case 1: {
                         if (typeDevice === this.TYPE_INPUT) {
                             if (event.type === 'touchstart') {
@@ -368,6 +437,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         }
                         break;
                     }
+
                     case 2: {
                         const parentDeviceInfo: HTMLElement = eventTarget.parentElement;
                         let e!: HTMLElement;
@@ -399,19 +469,27 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         }
                         break;
                     }
+
                     default:
                         break;
                 }
+
             }
+
         }
+
     }
 
 
     mouseUpEvent(event: Event, dataType: number, typeDevice: any) {
+
         if (this.deviceCheckUtils.checkEventPerforming(event)) {
+
             if (event.target !== undefined) {
+
                 const eventTarget: HTMLElement = event.target as HTMLElement;
                 switch (dataType) {
+
                     case 1: {
                         if (typeDevice === this.TYPE_INPUT) {
                             if (event.type === 'touchend') {
@@ -431,11 +509,15 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                         }
                         break;
                     }
+
                     default:
                         break;
                 }
+
             }
+
         }
+
     }
 
     touchMoveEvent(event: Event) {

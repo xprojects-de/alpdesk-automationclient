@@ -1,4 +1,3 @@
-
 import {HomeautomationParam} from '../classes/homeautomation-param';
 import {HomeautomationRecord} from '../classes/homeautomation-record';
 

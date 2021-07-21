@@ -1,5 +1,4 @@
-
-import { HomeautomationDevice } from '../classes/homeautomation-device';
+import {HomeautomationDevice} from '../classes/homeautomation-device';
 
 export class HomeautomationCategorie {
 

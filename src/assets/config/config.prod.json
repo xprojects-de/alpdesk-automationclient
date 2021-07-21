@@ -1,28 +1,28 @@
 {
-    "version": "3.9p",
-    "logging": {
-        "enabled": false
-    },
-    "apiServer": {
-        "rest": "http://192.168.1.11:5005/rest/data/",
-        "websocket": "ws://192.168.1.11:5005/ws"
-    },
-    "devices": {
-        "restfilter": [
-            "emc1d18iwp",
-            "em3vg0xgyh",
-            "ea5ze5i33t",
-            "ec2w4z86d5",
-            "ec2w1xf81d",
-            "ea5zatpcm9",
-            "ea5zhcco0h",
-            "ea5zgbn6pl",
-            "ea5zinj4ax",
-            "ea5zc7zja9",
-            "ea5z9oza2h",
-            "em20ejswq9",
-            "ewt7juo62x",
-            "f74p99dzld"
-        ]
-    }
+  "version": "3.9p",
+  "logging": {
+    "enabled": false
+  },
+  "apiServer": {
+    "rest": "http://192.168.1.11:5005/rest/data/",
+    "websocket": "ws://192.168.1.11:5005/ws"
+  },
+  "devices": {
+    "restfilter": [
+      "emc1d18iwp",
+      "em3vg0xgyh",
+      "ea5ze5i33t",
+      "ec2w4z86d5",
+      "ec2w1xf81d",
+      "ea5zatpcm9",
+      "ea5zhcco0h",
+      "ea5zgbn6pl",
+      "ea5zinj4ax",
+      "ea5zc7zja9",
+      "ea5z9oza2h",
+      "em20ejswq9",
+      "ewt7juo62x",
+      "f74p99dzld"
+    ]
+  }
 }

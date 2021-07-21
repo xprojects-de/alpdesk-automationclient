@@ -2,11 +2,11 @@
 <div id="deviceviewcontainer">
     <div class="dashboardheader">
         <div class="alert alert-success" role="alert">
-            <h2 
-                (mousedown)="reloadEvent($event)" 
-                (touchstart)="reloadEvent($event)"                 
-                (touchmove)="touchMoveEvent($event)" 
-                style="cursor: pointer;">
+            <h2
+                    (mousedown)="reloadEvent($event)"
+                    (touchstart)="reloadEvent($event)"
+                    (touchmove)="touchMoveEvent($event)"
+                    style="cursor: pointer;">
                 <span id="loading" [innerHTML]="loadingarea"></span>
                 {{tstamp}}
             </h2>
@@ -15,7 +15,9 @@
     </div>
     <div>
         <div *ngFor="let categorie of deviceviewboard">
-            <div [ngClass]="device.active ? 'xactive' : ''" class="xdeviceviewdevice xdeviceviewdevice{{device.typeDevice}}" *ngFor="let device of categorie.devices">
+            <div [ngClass]="device.active ? 'xactive' : ''"
+                 class="xdeviceviewdevice xdeviceviewdevice{{device.typeDevice}}"
+                 *ngFor="let device of categorie.devices">
                 <span style="font-weight:bold;display:block;">{{device.displayNameDevice}}</span>
                 <span style="display:block;">{{device.nameCategory}}</span>
             </div>
