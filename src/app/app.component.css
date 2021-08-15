@@ -1,12 +1,12 @@
 #header a {
-    display:block;
-    float:left;
+    display: block;
+    float: left;
     width: 30%;
-    margin-right:1%;
+    margin-right: 1%;
 }
 
 #container {
-    padding:10px;
+    padding: 10px;
 }
 
 #appversion {

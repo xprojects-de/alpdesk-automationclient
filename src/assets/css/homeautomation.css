@@ -184,6 +184,7 @@ h2 {
     background-position: left top;
     background-color: #ff6666;
 }
+
 .xdashboarddevice4000 {
     background-image: url(../icons/camera59.png);
     background-size: 30px 30px;
@@ -191,6 +192,7 @@ h2 {
     background-position: left top;
     background-color: #ffa3f7;
 }
+
 .xdashboarddevice7000,
 .xdashboarddevice8000 {
     background-image: url(../icons/camera59.png);
@@ -453,17 +455,20 @@ h2 {
 #restcontainer span.head {
     display: block;
 }
+
 #restcontainer span.info {
     display: block;
     font-weight: bold;
     font-size: 18px;
     padding-bottom: 10px;
 }
+
 #restcontainer .xdashboarddevice {
     padding-bottom: 0px;
     height: 120px;
     margin-bottom: 10px;
 }
+
 #restcontainer.xdeviceinfotoggler {
     margin-top: 10px;
 }

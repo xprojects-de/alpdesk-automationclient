@@ -2,14 +2,14 @@
 <div id="restcontainer">
     <div class="dashboardheader">
         <div class="alert alert-success" role="alert">
-            <h2 
-                (mousedown)="mouseDownEvent($event,1)" 
-                (touchstart)="mouseDownEvent($event,1)" 
-                (mouseleave)="mouseUpEvent($event,1)" 
-                (mouseup)="mouseUpEvent($event,1)" 
-                (touchend)="mouseUpEvent($event,1)" 
-                (touchmove)="touchMoveEvent($event)" 
-                style="cursor: pointer;">
+            <h2
+                    (mousedown)="mouseDownEvent($event,1)"
+                    (touchstart)="mouseDownEvent($event,1)"
+                    (mouseleave)="mouseUpEvent($event,1)"
+                    (mouseup)="mouseUpEvent($event,1)"
+                    (touchend)="mouseUpEvent($event,1)"
+                    (touchmove)="touchMoveEvent($event)"
+                    style="cursor: pointer;">
                 <span id="loading" [innerHTML]="loadingarea"></span>
                 {{tstamp}}
             </h2>
@@ -18,7 +18,9 @@
     </div>
     <div>
         <div *ngFor="let categorie of dashboard">
-            <div [ngClass]="device.active ? 'xactive' : ''" class="xdashboarddevice xdashboarddevice{{device.typeDevice}}" *ngFor="let device of categorie.devices">
+            <div [ngClass]="device.active ? 'xactive' : ''"
+                 class="xdashboarddevice xdashboarddevice{{device.typeDevice}}"
+                 *ngFor="let device of categorie.devices">
                 <span style="font-weight:bold;">{{device.nameCategory}}</span>
                 <ng-template [ngIf]="device.typeDevice == TYPE_TEMPERATURE || device.typeDevice == TYPE_SENSOR">
                     <div id="{{device.handleDevice}}">
@@ -36,28 +38,35 @@
                     </div>
                 </ng-template>
                 <div [ngClass]="device.params.length <= 0 ? 'xnodeviceinfo' : ''" class="xdeviceinfo">
-                    <div 
-                        (mousedown)="mouseDownEvent($event,2)" 
-                        (touchstart)="mouseDownEvent($event,2)" 
-                        (mouseup)="mouseUpEvent($event,2)" 
-                        (mouseleave)="mouseUpEvent($event,2)" 
-                        (touchend)="mouseUpEvent($event,2)" 
-                        (touchmove)="touchMoveEvent($event)" 
-                        class="xdeviceinfotoggler"></div>    
-                    <div class="xdeviceinfocontent" style="display:none;" >
+                    <div
+                            (mousedown)="mouseDownEvent($event,2)"
+                            (touchstart)="mouseDownEvent($event,2)"
+                            (mouseup)="mouseUpEvent($event,2)"
+                            (mouseleave)="mouseUpEvent($event,2)"
+                            (touchend)="mouseUpEvent($event,2)"
+                            (touchmove)="touchMoveEvent($event)"
+                            class="xdeviceinfotoggler"></div>
+                    <div class="xdeviceinfocontent" style="display:none;">
                         <div class="xdeviceinfoparam" *ngFor="let param of device.params">
-                             <span class="xdeviceinfoparamlabel">{{param.displayName}}:</span>
-                            <span id="p{{device.handleDevice}}_{{param.handle}}" class="xdeviceinfoparamvalue">{{param.value}}</span>
+                            <span class="xdeviceinfoparamlabel">{{param.displayName}}:</span>
+                            <span id="p{{device.handleDevice}}_{{param.handle}}"
+                                  class="xdeviceinfoparamvalue">{{param.value}}</span>
                             <ng-template [ngIf]="param.type == TYPE_PROPERTIEINFO_CHANGESOLLVALUE">
-                                <span (click)="sendParamMessage(param.handleDevice,param.handle,'-')" [ngClass]="param.editable ? 'xparamdeviceeditable' : ''" class="TYPE_PROPERTIEINFO_CHANGESOLLVALUE_DE">&nbsp;</span>
-                                <span (click)="sendParamMessage(param.handleDevice,param.handle,'+')" [ngClass]="param.editable ? 'xparamdeviceeditable' : ''" class="TYPE_PROPERTIEINFO_CHANGESOLLVALUE_IN">&nbsp;</span>
+                                <span (click)="sendParamMessage(param.handleDevice,param.handle,'-')"
+                                      [ngClass]="param.editable ? 'xparamdeviceeditable' : ''"
+                                      class="TYPE_PROPERTIEINFO_CHANGESOLLVALUE_DE">&nbsp;</span>
+                                <span (click)="sendParamMessage(param.handleDevice,param.handle,'+')"
+                                      [ngClass]="param.editable ? 'xparamdeviceeditable' : ''"
+                                      class="TYPE_PROPERTIEINFO_CHANGESOLLVALUE_IN">&nbsp;</span>
                             </ng-template>
                             <ng-template [ngIf]="param.type == TYPE_PROPERTIEINFO_TOGGLEACTIVATION">
-                                <span (click)="sendParamMessage(param.handleDevice,param.handle,'1')" [ngClass]="param.editable ? 'xparamdeviceeditable' : ''" class="TYPE_PROPERTIEINFO_TOGGLEACTIVATION">&nbsp;</span>
+                                <span (click)="sendParamMessage(param.handleDevice,param.handle,'1')"
+                                      [ngClass]="param.editable ? 'xparamdeviceeditable' : ''"
+                                      class="TYPE_PROPERTIEINFO_TOGGLEACTIVATION">&nbsp;</span>
                             </ng-template>
                             <ng-template [ngIf]="param.type == TYPE_PROPERTIEINFO_INFO">
                                 <span data-value="1" class="xdeviceinfoparamvalue TYPE_PROPERTIEINFO_INFO"></span>
-                            </ng-template>            
+                            </ng-template>
                         </div>
                     </div>
                 </div>

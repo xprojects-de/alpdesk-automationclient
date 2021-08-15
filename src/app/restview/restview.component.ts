@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Observable, interval, Subscription} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {Router} from '@angular/router';
 import {RestService} from '../services/rest.service';
@@ -43,57 +43,78 @@ export class RestviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
         this.loadingarea = '<img width="100" src="assets/loading.gif" alt="loading" />';
         this.initComponent();
+
         this.updateSubscription = interval(5000).subscribe(counter => {
+
             if (counter % 12 === 0 || this.reloadIntervaltriggered === true) {
                 this.reloadIntervaltriggered = false;
                 this.initComponent();
             }
+
         });
+
     }
 
     ngOnDestroy() {
+
         if (this.updateSubscription) {
             this.updateSubscription.unsubscribe();
         }
+
     }
 
     initComponent() {
+
         this.rest.getDashboard().subscribe((data: {}) => {
             this.parseJson(data);
         });
+
     }
 
     sendParamMessage(device: string, param: string, value: string) {
+
         const message = 'p' + device + '_' + param + '@' + value;
         this.rest.modifyItem(message).subscribe((data: {}) => {
         });
+
         if (!this.reloadIntervaltriggered) {
             this.reloadIntervaltriggered = true;
         }
+
     }
 
     parseJson(data: any) {
+
         if (data.error === this.STATE_NOERROR) {
+
             this.tstamp = data.tstamp;
             this.parseDevices(data.devices);
+
         } else {
             this.dashboard = [];
         }
+
     }
 
     parseDevices(devices: any) {
+
         this.homeautomationDevices = [];
         let add: boolean = false;
+
         devices.forEach(element => {
+
             add = false;
             this.filter.forEach(filter => {
                 if (element.idDevice === filter) {
                     add = true;
                 }
             });
+
             if (add) {
+
                 let found: boolean = false;
                 for (const [key, value] of Object.entries(this.homeautomationDevices)) {
                     if (value.name === element.nameCategory) {
@@ -103,6 +124,7 @@ export class RestviewComponent implements OnInit, OnDestroy {
                         return;
                     }
                 }
+
                 if (!found) {
                     const homeCategorie: HomeautomationCategorie = new HomeautomationCategorie();
                     homeCategorie.name = element.nameCategory;
@@ -112,13 +134,17 @@ export class RestviewComponent implements OnInit, OnDestroy {
                 }
 
             }
+
         });
+
         this.dashboard = [];
         this.loadingarea = '';
         this.dashboard = this.homeautomationDevices;
+
     }
 
     getDevices(devicevalue: any): HomeautomationDevice {
+
         const homeDevice: HomeautomationDevice = new HomeautomationDevice();
         homeDevice.typeDevice = devicevalue.typeDevice;
         homeDevice.nameCategory = devicevalue.nameCategory;
@@ -128,13 +154,17 @@ export class RestviewComponent implements OnInit, OnDestroy {
         homeDevice.active = false;
         homeDevice.runningState = false;
         homeDevice.styleDevice = '';
+
         if (devicevalue.value !== undefined && devicevalue.value === 'true') {
             homeDevice.active = true;
         }
+
         if (devicevalue.runningState !== undefined && devicevalue.runningState === 'true') {
             homeDevice.runningState = true;
         }
-        if (!!devicevalue.params && devicevalue.params !== undefined) {
+
+        if (devicevalue.params !== undefined && devicevalue.params !== null) {
+
             let counter = 0;
             devicevalue.params.forEach(paramvalue => {
                 const param: HomeautomationParam = new HomeautomationParam();
@@ -148,14 +178,21 @@ export class RestviewComponent implements OnInit, OnDestroy {
                 homeDevice.params[counter] = param;
                 counter++;
             });
+
         }
+
         return homeDevice;
+
     }
 
     mouseDownEvent(event: Event, dataType: number) {
+
         if (this.deviceCheckUtils.checkEventPerforming(event)) {
+
             if (event.target !== undefined) {
+
                 switch (dataType) {
+
                     case 1: {
                         if (event.type === 'touchstart') {
                             this.touchMoveDetected = false;
@@ -169,6 +206,7 @@ export class RestviewComponent implements OnInit, OnDestroy {
                         }
                         break;
                     }
+
                     case 2: {
                         const parentDeviceInfo: HTMLElement = (event.target as HTMLElement).parentElement;
                         let e!: HTMLElement;
@@ -202,28 +240,40 @@ export class RestviewComponent implements OnInit, OnDestroy {
                         }
                         break;
                     }
+
                     default:
                         break;
                 }
+
             }
+
         }
+
     }
 
     mouseUpEvent(event: Event, dataType: number) {
+
         if (this.deviceCheckUtils.checkEventPerforming(event)) {
+
             if (event.target !== undefined) {
+
                 switch (dataType) {
                     default:
                         break;
                 }
+
             }
+
         }
+
     }
 
     touchMoveEvent(event: Event) {
+
         if (this.deviceCheckUtils.checkEventPerforming(event)) {
             this.touchMoveDetected = true;
         }
+
     }
 
 }

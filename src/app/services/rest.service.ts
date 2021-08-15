@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {map, catchError, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {AppConfigService} from '../services/app-config.service';
 
 @Injectable({
@@ -21,8 +21,10 @@ export class RestService {
     }
 
     private extractData(res: Response) {
+
         const body = res;
         return body || {};
+
     }
 
     getDashboard(): Observable<any> {
@@ -30,10 +32,13 @@ export class RestService {
     }
 
     modifyItem(value: string): Observable<any> {
+
         const sysJson = JSON.stringify({value});
         const options = {
             headers: new HttpHeaders().append('Content-Type', 'application/json')
         };
+
         return this.http.post(this.endpoint + 'setv2', sysJson, options).pipe(map(this.extractData));
+
     }
 }
