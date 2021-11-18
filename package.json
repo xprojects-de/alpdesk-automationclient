@@ -32,7 +32,7 @@
     "ngx-device-detector": "^2.1.1",
     "plotly.js": "^2.6.0",
     "popper.js": "^1.16.1",
-    "rxjs": "^6.6.7",
+    "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
@@ -48,8 +48,8 @@
     "fs-extra": "^10.0.0",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.4",
-    "karma-coverage": "~2.0.3",
     "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
