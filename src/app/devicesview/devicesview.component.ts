@@ -21,7 +21,7 @@ export class DevicesviewComponent implements OnInit, OnDestroy {
     TYPE_OUTPUT = '2000';
     deviceviewboard: HomeautomationCategorie[] = [];
     homeautomationDevices: HomeautomationCategorie[] = [];
-    private updateSubscription: Subscription;
+    private updateSubscription: Subscription | undefined = undefined;
     private touchMoveDetected: boolean = false;
     private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
 
@@ -34,7 +34,7 @@ export class DevicesviewComponent implements OnInit, OnDestroy {
         this.initComponent();
 
         this.updateSubscription = interval(5000).subscribe(counter => {
-            if (counter % 24 === 0 || this.reloadIntervaltriggered === true) {
+            if (counter % 24 === 0 || this.reloadIntervaltriggered) {
                 this.reloadIntervaltriggered = false;
                 this.initComponent();
             }
@@ -75,7 +75,7 @@ export class DevicesviewComponent implements OnInit, OnDestroy {
 
         this.homeautomationDevices = [];
 
-        devices.forEach(element => {
+        devices.forEach((element: any) => {
 
             const tmpDevice: HomeautomationDevice = this.getDevices(element);
             if (tmpDevice !== undefined && tmpDevice !== null) {
@@ -85,6 +85,7 @@ export class DevicesviewComponent implements OnInit, OnDestroy {
 
                     if (value.name === element.nameCategory) {
                         found = true;
+                        // @ts-ignore
                         const homeCategorie: HomeautomationCategorie = this.homeautomationDevices[key];
                         homeCategorie.devices[homeCategorie.devices.length] = tmpDevice;
                         return;
@@ -151,7 +152,7 @@ export class DevicesviewComponent implements OnInit, OnDestroy {
 
                     this.touchMoveDetected = false;
                     setTimeout(() => {
-                        if (this.touchMoveDetected === false) {
+                        if (!this.touchMoveDetected) {
                             this.initComponent();
                         }
                     }, 250);

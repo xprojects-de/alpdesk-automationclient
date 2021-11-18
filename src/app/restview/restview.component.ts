@@ -35,7 +35,7 @@ export class RestviewComponent implements OnInit, OnDestroy {
     homeautomationDevices: HomeautomationCategorie[] = [];
     filter: any = AppConfigService.settings.devices.restfilter;
 
-    private updateSubscription: Subscription;
+    private updateSubscription: Subscription | undefined = undefined;
     private touchMoveDetected: boolean = false;
     private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
 
@@ -104,10 +104,10 @@ export class RestviewComponent implements OnInit, OnDestroy {
         this.homeautomationDevices = [];
         let add: boolean = false;
 
-        devices.forEach(element => {
+        devices.forEach((element: any) => {
 
             add = false;
-            this.filter.forEach(filter => {
+            this.filter.forEach((filter: any) => {
                 if (element.idDevice === filter) {
                     add = true;
                 }
@@ -119,6 +119,7 @@ export class RestviewComponent implements OnInit, OnDestroy {
                 for (const [key, value] of Object.entries(this.homeautomationDevices)) {
                     if (value.name === element.nameCategory) {
                         found = true;
+                        // @ts-ignore
                         const homeCategorie: HomeautomationCategorie = this.homeautomationDevices[key];
                         homeCategorie.devices[homeCategorie.devices.length] = this.getDevices(element);
                         return;
@@ -166,7 +167,7 @@ export class RestviewComponent implements OnInit, OnDestroy {
         if (devicevalue.params !== undefined && devicevalue.params !== null) {
 
             let counter = 0;
-            devicevalue.params.forEach(paramvalue => {
+            devicevalue.params.forEach((paramvalue: any) => {
                 const param: HomeautomationParam = new HomeautomationParam();
                 param.displayName = paramvalue.displayName;
                 param.handleDevice = devicevalue.handleDevice;
@@ -208,13 +209,17 @@ export class RestviewComponent implements OnInit, OnDestroy {
                     }
 
                     case 2: {
-                        const parentDeviceInfo: HTMLElement = (event.target as HTMLElement).parentElement;
+                        const parentDeviceInfo: HTMLElement | null = (event.target as HTMLElement).parentElement;
                         let e!: HTMLElement;
+                        // @ts-ignore
                         parentDeviceInfo.childNodes.forEach(element => {
                             e = element as HTMLElement;
                             if (e.className === 'xdeviceinfocontent') {
+                                // @ts-ignore
                                 e.style.top = parentDeviceInfo.offsetTop + parentDeviceInfo.offsetHeight + 'px';
+                                // @ts-ignore
                                 e.style.left = parentDeviceInfo.offsetLeft + 'px';
+                                // @ts-ignore
                                 e.style.width = parentDeviceInfo.offsetWidth + 'px';
                             }
                         });

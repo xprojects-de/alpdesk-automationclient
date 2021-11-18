@@ -1,5 +1,5 @@
-import {HomeautomationParam} from '../classes/homeautomation-param';
-import {HomeautomationRecord} from '../classes/homeautomation-record';
+import {HomeautomationParam} from './homeautomation-param';
+import {HomeautomationRecord} from './homeautomation-record';
 
 export class HomeautomationDevice {
 
@@ -8,10 +8,10 @@ export class HomeautomationDevice {
     value: any;
     handleDevice: any;
     displayNameDevice: any;
-    active: boolean;
-    runningState: boolean;
-    styleDevice: string;
-    classvalue: string;
+    active: boolean = false;
+    runningState: boolean = false;
+    styleDevice: string = '';
+    classvalue: string = '';
     show: boolean = false;
     params: HomeautomationParam[] = [];
     dashboard: HomeautomationParam[] = [];

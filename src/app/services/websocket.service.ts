@@ -65,7 +65,7 @@ export class WebsocketService {
             this.stompClient.unsubscribe('/reply/connect');
             this.stompClient.unsubscribe(this.topic + 'init/' + this.getConnectionId());
             this.stompClient.unsubscribe(this.topic + this.getConnectionId());
-            this.stompClient.deactivate();
+            this.stompClient.deactivate().then();
 
             this.setConnectionId('');
 
@@ -75,7 +75,7 @@ export class WebsocketService {
 
     private sendMessage(dest: string, body: any): void {
 
-        if (this.stompClient !== null && this.stompClient !== undefined && this.stompClient.active === true) {
+        if (this.stompClient !== null && this.stompClient !== undefined && this.stompClient.active) {
             this.stompClient.publish({destination: dest, body: JSON.stringify(body)});
         }
 
@@ -105,7 +105,7 @@ export class WebsocketService {
         this.sendMessage('/watchdog/' + this.getConnectionId(), '');
     }
 
-    sendMessageRequest(message) {
+    sendMessageRequest(message: any) {
         this.sendMessage('/message/' + this.getConnectionId(), {message});
     }
 

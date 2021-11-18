@@ -15,12 +15,12 @@ export class AppConfigService {
 
     load() {
 
-        const jsonPrefix: string = (environment.production === true ? 'prod' : 'dev');
+        const jsonPrefix: string = (environment.production ? 'prod' : 'dev');
         const jsonFile: string = `assets/config/config.${jsonPrefix}.json`;
 
         return new Promise<void>((resolve, reject) => {
 
-            this.http.get(jsonFile).toPromise().then((response: IAppConfig) => {
+            this.http.get(jsonFile).toPromise().then((response: any) => {
                 AppConfigService.settings = response as IAppConfig;
                 resolve();
             }).catch((response: any) => {

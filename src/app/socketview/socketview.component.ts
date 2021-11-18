@@ -25,7 +25,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
 
     loadingarea: any = '';
     output: any = [];
-    categoriehtml: HomeautomationCategorie = null;
+    categoriehtml: HomeautomationCategorie | null = null;
     STATE_ERROR: number = 1;
     STATE_NOERROR: number = 0;
     STATE_INFO: number = 0;
@@ -61,7 +61,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
     private asyncStatusSubject: Subject<AsyncStatusMessage> = new Subject<AsyncStatusMessage>();
     private asyncStatusSubjectFlag: boolean = false;
-    private updateSubscription: Subscription;
+    private updateSubscription: Subscription | undefined = undefined;
 
     constructor(websocketService: WebsocketService, private deviceService: DeviceDetectorService) {
 
@@ -95,6 +95,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 
+        // @ts-ignore
         this.updateSubscription.unsubscribe();
         this.asyncStatusSubject.unsubscribe();
         this.websocketService.disconnect();
@@ -104,7 +105,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     renderDeviceCategorieHTML(index: number) {
 
         const categorie: HomeautomationCategorie = this.homeautomationDevices[index];
-        categorie.devices.forEach(devicevalue => {
+        categorie.devices.forEach((devicevalue: any) => {
 
             if (devicevalue.typeDevice === this.TYPE_INPUT) {
                 devicevalue.classvalue = 'xinputdevice';
@@ -161,7 +162,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                 }
 
                 devicevalue.recordGraph.layout.title = devicevalue.nameCategory + ' ' + devicevalue.displayNameDevice;
-                devicevalue.records.forEach(record => {
+                devicevalue.records.forEach((record: any) => {
                     if (record.values.length === dimension) {
                         for (k = 0; k < dimension; k++) {
                             devicevalue.recordGraph.data[k].x.push(record.legend);
@@ -287,12 +288,13 @@ export class SocketviewComponent implements OnInit, OnDestroy {
 
     private parseDevices(devices: any) {
 
-        devices.forEach(element => {
+        devices.forEach((element: any) => {
 
             let found: boolean = false;
             for (const [key, value] of Object.entries(this.homeautomationDevices)) {
                 if (value.name === element.nameCategory) {
                     found = true;
+                    // @ts-ignore
                     const homeCategorie: HomeautomationCategorie = this.homeautomationDevices[key];
                     homeCategorie.devices[homeCategorie.devices.length] = this.getDevices(element);
                     return;
@@ -337,7 +339,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
         if (devicevalue.params !== undefined && devicevalue.params !== null) {
 
             let counter = 0;
-            devicevalue.params.forEach(paramvalue => {
+            devicevalue.params.forEach((paramvalue: any) => {
                 const param: HomeautomationParam = new HomeautomationParam();
                 param.displayName = paramvalue.displayName;
                 param.handleDevice = devicevalue.handleDevice;
@@ -355,7 +357,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
         if (devicevalue.dashboard !== undefined && devicevalue.dashboard !== null) {
 
             let counter = 0;
-            devicevalue.dashboard.forEach(dashboardvalue => {
+            devicevalue.dashboard.forEach((dashboardvalue: any) => {
                 const dashboard: HomeautomationParam = new HomeautomationParam();
                 dashboard.displayName = dashboardvalue.displayName;
                 dashboard.handleDevice = devicevalue.handleDevice;
@@ -373,7 +375,7 @@ export class SocketviewComponent implements OnInit, OnDestroy {
         if (devicevalue.records !== undefined && devicevalue.records !== null) {
 
             let counter = 0;
-            devicevalue.records.forEach(recordvalue => {
+            devicevalue.records.forEach((recordvalue: any) => {
                 const record: HomeautomationRecord = new HomeautomationRecord();
                 record.id = recordvalue.id;
                 record.dimension = recordvalue.dimension;
@@ -439,13 +441,17 @@ export class SocketviewComponent implements OnInit, OnDestroy {
                     }
 
                     case 2: {
-                        const parentDeviceInfo: HTMLElement = eventTarget.parentElement;
+                        const parentDeviceInfo: HTMLElement | null = eventTarget.parentElement;
                         let e!: HTMLElement;
+                        // @ts-ignore
                         parentDeviceInfo.childNodes.forEach(element => {
                             e = element as HTMLElement;
                             if (e.className === 'xdeviceinfocontent') {
+                                // @ts-ignore
                                 e.style.top = parentDeviceInfo.offsetTop + parentDeviceInfo.offsetHeight + 'px';
+                                // @ts-ignore
                                 e.style.left = parentDeviceInfo.offsetLeft + 'px';
+                                // @ts-ignore
                                 e.style.width = parentDeviceInfo.offsetWidth + 'px';
                             }
                         });

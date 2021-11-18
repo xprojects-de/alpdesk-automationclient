@@ -2,8 +2,8 @@ export class HomeautomationParam {
     displayName: any;
     handleDevice: any;
     handle: any;
-    visibleValue: boolean;
-    editable: boolean;
+    visibleValue: boolean = false;
+    editable: boolean = false;
     value: any;
     type: any;
 }

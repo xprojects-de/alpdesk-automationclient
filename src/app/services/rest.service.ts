@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {AppConfigService} from '../services/app-config.service';
+import {AppConfigService} from './app-config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ import {AppConfigService} from '../services/app-config.service';
 export class RestService {
 
     endpoint = AppConfigService.settings.apiServer.rest;
-    httpOptions = {
+    httpOptions: any = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         })
@@ -28,6 +28,7 @@ export class RestService {
     }
 
     getDashboard(): Observable<any> {
+        // @ts-ignore
         return this.http.get(this.endpoint + 'dashboardv2').pipe(map(this.extractData));
     }
 
@@ -38,6 +39,7 @@ export class RestService {
             headers: new HttpHeaders().append('Content-Type', 'application/json')
         };
 
+        // @ts-ignore
         return this.http.post(this.endpoint + 'setv2', sysJson, options).pipe(map(this.extractData));
 
     }

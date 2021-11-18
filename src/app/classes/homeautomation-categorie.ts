@@ -1,8 +1,8 @@
-import {HomeautomationDevice} from '../classes/homeautomation-device';
+import {HomeautomationDevice} from './homeautomation-device';
 
 export class HomeautomationCategorie {
 
-    index: number;
+    index: number = -1;
     name: any;
     devices: HomeautomationDevice[] = [];
 
