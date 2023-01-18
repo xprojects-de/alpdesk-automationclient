@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="alpdesk-automationclient-3.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/alpdesk-automationclient-3.8.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
