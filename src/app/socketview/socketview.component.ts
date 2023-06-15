@@ -58,13 +58,14 @@ export class SocketviewComponent implements OnInit, OnDestroy {
     private touchEnd: boolean = false;
     private touchStart: boolean = false;
     private touchDateStart: number = 0;
-    private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
+    private deviceCheckUtils;
     private asyncStatusSubject: Subject<AsyncStatusMessage> = new Subject<AsyncStatusMessage>();
     private asyncStatusSubjectFlag: boolean = false;
     private updateSubscription: Subscription | undefined = undefined;
 
     constructor(websocketService: WebsocketService, private deviceService: DeviceDetectorService) {
 
+        this.deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
         this.loadingarea = '<img width="150" src="assets/loading.gif" alt="loading" />';
         this.websocketService = websocketService;
 

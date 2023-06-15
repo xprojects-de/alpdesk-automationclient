@@ -23,9 +23,10 @@ export class DevicesviewComponent implements OnInit, OnDestroy {
     homeautomationDevices: HomeautomationCategorie[] = [];
     private updateSubscription: Subscription | undefined = undefined;
     private touchMoveDetected: boolean = false;
-    private deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
+    private deviceCheckUtils;
 
     constructor(public rest: RestService, public router: Router, private deviceService: DeviceDetectorService) {
+        this.deviceCheckUtils = new DeviceCheckUtils(this.deviceService);
     }
 
     ngOnInit() {
