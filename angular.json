@@ -74,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "alpdesk-automationclient:build:production"
+              "buildTarget": "alpdesk-automationclient:build:production"
             },
             "development": {
-              "browserTarget": "alpdesk-automationclient:build:development"
+              "buildTarget": "alpdesk-automationclient:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "alpdesk-automationclient:build"
+            "buildTarget": "alpdesk-automationclient:build"
           }
         },
         "test": {
