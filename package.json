@@ -21,13 +21,13 @@
     "@angular/platform-browser-dynamic": "^17.1.1",
     "@angular/router": "^17.1.1",
     "@stomp/stompjs": "^7.0.0",
-    "@types/plotly.js": "^2.12.30",
+    "@types/plotly.js": "^2.12.32",
     "angular-plotly.js": "^5.2",
     "ngx-device-detector": "^7.0.0",
-    "plotly.js": "^2.27.1",
+    "plotly.js": "^2.28.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.14.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.1.1",
@@ -40,10 +40,10 @@
     "@angular/compiler-cli": "^17.1.1",
     "@angular/language-service": "^17.1.1",
     "@types/jasmine": "^5.1.4",
-    "@types/node": "^20.10.3",
-    "@typescript-eslint/eslint-plugin": "^6.13.1",
-    "@typescript-eslint/parser": "^6.13.1",
-    "eslint": "^8.55.0",
+    "@types/node": "^20.11.10",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
     "fs-extra": "^11.2.0",
     "jasmine-core": "~5.1.1",
     "karma": "~6.4.2",
@@ -51,6 +51,6 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   }
 }
